@@ -3,17 +3,25 @@
   hosts: db_and_webserver1,db_and_webserver2
   become: true
   tasks:
-   - name: Install all required dependencies
-     apt: 
-      name: "{{ item }}"
-      state: present
-     with_items:
-       - python
-       - python-setuptools 
-       - python-dev 
-       - build-essential 
-       - python-pip 
-       - python-mysqldb
+  # python_version is a given variable, eg. `3.5`
+   - name: Check if python is already latest
+     command: python3 --version
+     register: python_version_result
+     failed_when: "{{ python_version_result.stdout | replace('Python ', '') | version_compare(python_version, '>=') }}"
+   - name: Install prerequisites
+     apt: name=python-software-properties state=present
+     become: true
+
+  #  - name: Install all required dependencies
+  #    apt: 
+  #     name: "{{ item }}"
+  #     state: present
+  #    with_items:
+  #      - python-setuptools 
+  #      - python-dev 
+  #      - build-essential 
+  #      - python-pip 
+  #      - python-mysqldb
    - name: Install and Configure Database
      apt: 
       name: "{{ item }}" 
