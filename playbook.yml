@@ -12,10 +12,10 @@
   #    become: true
 
    - name: Install all required dependencies
+     become: true
      apt: 
       name: "{{ item }}"
       state: present
-      become: true
      with_items:
        - python
        - python-setuptools 
