@@ -1,0 +1,6 @@
+---
+- name: Simple Web Application
+  hosts: db_and_webserver1,db_and_webserver2
+  tasks:
+   - name: ping
+     ping:
