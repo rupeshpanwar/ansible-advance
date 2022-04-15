@@ -1,7 +1,6 @@
 ---
 - name: Simple Web Application
   hosts: db_and_webserver1,db_and_webserver2
-  become: true
   tasks:
   # python_version is a given variable, eg. `3.5`
    - name: Check if python is already latest
@@ -23,12 +22,14 @@
   #      - python-pip 
   #      - python-mysqldb
    - name: Install and Configure Database
+     become: true
      apt: 
       name: "{{ item }}" 
       state: present
      with_items:
       - mysql-server 
       - mysql-client
+  
    - name: Start MySQL Server Service
      service: 
       name: mysql
