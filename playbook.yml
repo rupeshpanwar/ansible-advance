@@ -2,5 +2,12 @@
 - name: Simple Web Application
   hosts: db_and_webserver1,db_and_webserver2
   tasks:
-   - name: ping
-     ping:
+   - name: Install all required dependencies
+     apt: name={{ item }} state=present
+     with_items:
+       - python
+       - python-setuptools 
+       - python-dev 
+       - build-essential 
+       - python-pip 
+       - python-mysqldb
