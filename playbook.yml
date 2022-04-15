@@ -3,10 +3,10 @@
   hosts: db_and_webserver1,db_and_webserver2
   tasks:
   # python_version is a given variable, eg. `3.5`
-   - name: Check if python is already latest
-     command: python3 --version
-     register: python_version_result
-     failed_when: "{{ python_version_result.stdout | replace('Python ', '') | version_compare(python_version, '>=') }}"
+  #  - name: Check if python is already latest
+  #    command: python3 --version
+  #    register: python_version_result
+  #    failed_when: "{{ python_version_result.stdout | replace('Python ', '') | version_compare(python_version, '>=') }}"
    - name: Install prerequisites
      apt: name=python-software-properties state=present
      become: true
