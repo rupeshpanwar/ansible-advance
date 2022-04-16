@@ -12,6 +12,6 @@
        - python-pip
        - python-mysqldb
       
-    - import: tasks/deploy_db.yml
-    - import: tasks/deploy_web.yml
+    - include: tasks/deploy_db.yml
+    - include: tasks/deploy_web.yml
 
