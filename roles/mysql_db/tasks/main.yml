@@ -1,3 +1,4 @@
+---
     - name: Install MySQL database
       apt:
         name: "{{ item }}"
@@ -17,3 +18,4 @@
 
     - name: Create Application DB User
       mysql_user: name="{{ db_user }}" password="{{ db_password }}" priv='*.*:ALL' host='%' state='present'
+
