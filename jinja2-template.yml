@@ -3,6 +3,42 @@
   vars:
     first_name: james
     last_name: bond
+    array_of_numbers:
+      - 12
+      - 34
+      - 06
+      - 34
+    web_dependencies:
+         - python
+         - python-setuptools
+         - python-dev
+         - build-essential
+         - python-pip
+         - python-mysqldb
+    sql_dependencies:
+         - python
+         - python-mysqldb
+    ip_address: 192.168.1.6
   tasks:
   - debug:
       msg: 'The name is {{ last_name }}! {{ first_name }} {{ last_name }}!'
+
+  - debug:
+      msg: 'The name is {{ last_name | title }}! {{ first_name | title }} {{ last_name | title }}!'
+
+  - debug:
+      msg: 'Lowest = {{ array_of_numbers | min }}'
+
+
+  - name: Install dependencies
+    apt: name='{{ item }}' state=present
+    with_items: '{{ sql_dependencies | union(web_dependencies) }}'
+
+  - name: Create file
+    file:
+      path: /tmp/random_file"{{ 1000 | random }}"
+      state: touch
+    
+  - name: Test IP Address
+    debug:
+      msg: IP Address = {{ ip_address | ipaddr }}
